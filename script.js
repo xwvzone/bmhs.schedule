@@ -17,6 +17,7 @@ function render(section) {
     data[section].forEach((item, index) => {
         const li = document.createElement("li");
         li.textContent = item.date ? `${item.date} - ${item.event}` : item.event;
+
         if(isAdmin){
             const editBtn = document.createElement("button");
             editBtn.textContent = "수정";
@@ -67,7 +68,7 @@ sections.forEach(sec => {
     }
 });
 
-// 섹션별 초기화 버튼 생성 (처음에는 hidden)
+// 섹션별 초기화 버튼 생성 (관리자 모드 전 hidden)
 sections.forEach(sec => {
     const sectionEl = document.getElementById(sec);
     const btn = document.createElement("button");
@@ -81,7 +82,7 @@ sections.forEach(sec => {
         }
     };
     sectionEl.querySelector(".admin-form").appendChild(btn);
-    btn.dataset.sectionInitBtn = "true";
+    btn.dataset.sectionInitBtn = "true"; // 관리자 모드 켤 때만 visible
 });
 
 // 렌더링 초기
@@ -135,13 +136,14 @@ document.getElementById("adminBtn").onclick = () => {
     const pass = document.getElementById("adminPass").value;
     if(pass === ADMIN_PASSWORD){
         isAdmin = true;
+        // admin-form 보이기
         document.querySelectorAll(".admin-form").forEach(f => f.classList.remove("hidden"));
+        // 섹션별 초기화 버튼 보이기
         document.querySelectorAll("button[data-section-init-btn]").forEach(b => b.classList.remove("hidden"));
         alert("관리자 모드 활성화!");
         document.getElementById("adminPass").value = "";
-        sections.forEach(sec => render(sec)); // 관리자 기능 반영
+        sections.forEach(sec => render(sec)); // 리스트 새로 렌더링
     } else {
         alert("비밀번호 틀림");
     }
 }
-
