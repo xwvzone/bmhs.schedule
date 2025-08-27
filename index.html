@@ -4,59 +4,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>보문고등학교 일정</title>
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/main.min.css" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<header>
-  <h1 id="homeBtn">보문고등학교 일정</h1>
-  <div>
-    <input type="password" id="adminPass" placeholder="관리자 비밀번호">
-    <button id="adminBtn">관리자 모드</button>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+<header class="p-6 sticky top-0 z-50 bg-gray-100">
+  <h1 id="homeBtn" class="text-3xl font-bold text-center cursor-pointer hover:text-gray-600 transition">보문고등학교 일정</h1>
+  <div class="flex justify-center flex-wrap gap-3 mt-3">
+    <a href="#school" class="sectionBtn px-4 py-2 rounded transition" data-target="school">학교 일정</a>
+    <a href="#class" class="sectionBtn px-4 py-2 rounded transition" data-target="class">학급 일정</a>
+    <a href="#assignment" class="sectionBtn px-4 py-2 rounded transition" data-target="assignment">수행평가</a>
+    <a href="#exam" class="sectionBtn px-4 py-2 rounded transition" data-target="exam">시험 일정</a>
+    <a href="#notice" class="sectionBtn px-4 py-2 rounded transition" data-target="notice">공지사항</a>
   </div>
 </header>
 
-<main id="home">
-  <div id="calendar"></div>
+<main class="p-6">
+
+  <section id="home" class="mb-12">
+    <div id="calendar" class="mx-auto max-w-4xl"></div>
+    <div class="mt-4 text-center">
+      <input type="password" id="adminPass" placeholder="관리자 비밀번호 입력" class="border p-2 rounded mr-2">
+      <button id="adminBtn" class="px-4 py-2 rounded border">관리자 모드 활성화</button>
+    </div>
+  </section>
+
+  <section id="school">
+    <h2 class="text-2xl font-bold mb-4">학교 일정</h2>
+    <div class="admin-form mb-4 hidden">
+      <input type="date" id="schoolDate" class="border p-2 rounded mr-2">
+      <input type="text" id="schoolEvent" placeholder="행사 이름" class="border p-2 rounded mr-2">
+      <button id="schoolAddBtn" class="px-4 py-2 rounded border">등록</button>
+    </div>
+    <ul id="schoolList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></ul>
+  </section>
+
+  <section id="class" class="mt-12">
+    <h2 class="text-2xl font-bold mb-4">학급 일정</h2>
+    <div class="admin-form mb-4 hidden">
+      <input type="date" id="classDate" class="border p-2 rounded mr-2">
+      <input type="text" id="classEvent" placeholder="행사 이름" class="border p-2 rounded mr-2">
+      <button id="classAddBtn" class="px-4 py-2 rounded border">등록</button>
+    </div>
+    <ul id="classList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></ul>
+  </section>
+
+  <section id="assignment" class="mt-12">
+    <h2 class="text-2xl font-bold mb-4">수행평가</h2>
+    <div class="admin-form mb-4 hidden">
+      <input type="date" id="assignmentDate" class="border p-2 rounded mr-2">
+      <input type="text" id="assignmentEvent" placeholder="내용" class="border p-2 rounded mr-2">
+      <button id="assignmentAddBtn" class="px-4 py-2 rounded border">등록</button>
+    </div>
+    <ul id="assignmentList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></ul>
+  </section>
+
+  <section id="exam" class="mt-12">
+    <h2 class="text-2xl font-bold mb-4">시험 일정</h2>
+    <div class="admin-form mb-4 hidden">
+      <input type="date" id="examDate" class="border p-2 rounded mr-2">
+      <input type="text" id="examEvent" placeholder="시험 이름" class="border p-2 rounded mr-2">
+      <button id="examAddBtn" class="px-4 py-2 rounded border">등록</button>
+    </div>
+    <ul id="examList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></ul>
+  </section>
+
+  <section id="notice" class="mt-12">
+    <h2 class="text-2xl font-bold mb-4">공지사항</h2>
+    <div class="admin-form mb-4 hidden">
+      <input type="text" id="noticeEvent" placeholder="공지 내용" class="border p-2 rounded mr-2 w-64">
+      <button id="noticeAddBtn" class="px-4 py-2 rounded border">등록</button>
+    </div>
+    <ul id="noticeList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></ul>
+  </section>
+
 </main>
 
-<!-- 섹션 -->
-<section id="school" class="section">
-  <h2>우리 학교 일정</h2>
-  <ul id="schoolList"></ul>
-  <div class="admin-form hidden"></div>
-  <input type="date" id="schoolDate"><input type="text" id="schoolEvent" placeholder="일정 입력"><button id="schoolAddBtn">등록</button>
-</section>
-
-<section id="class" class="section">
-  <h2>우리 학급 일정</h2>
-  <ul id="classList"></ul>
-  <div class="admin-form hidden"></div>
-  <input type="date" id="classDate"><input type="text" id="classEvent" placeholder="일정 입력"><button id="classAddBtn">등록</button>
-</section>
-
-<section id="assignment" class="section">
-  <h2>수행평가</h2>
-  <ul id="assignmentList"></ul>
-  <div class="admin-form hidden"></div>
-  <input type="date" id="assignmentDate"><input type="text" id="assignmentEvent" placeholder="내용 입력"><button id="assignmentAddBtn">등록</button>
-</section>
-
-<section id="exam" class="section">
-  <h2>시험 일정</h2>
-  <ul id="examList"></ul>
-  <div class="admin-form hidden"></div>
-  <input type="date" id="examDate"><input type="text" id="examEvent" placeholder="내용 입력"><button id="examAddBtn">등록</button>
-</section>
-
-<section id="notice" class="section">
-  <h2>공지사항</h2>
-  <ul id="noticeList"></ul>
-  <div class="admin-form hidden"></div>
-  <input type="text" id="noticeEvent" placeholder="공지 입력"><button id="noticeAddBtn">등록</button>
-</section>
-
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/main.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
+
