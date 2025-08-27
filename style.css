@@ -1,0 +1,32 @@
+li {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+li:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+.admin-form input, .admin-form button {
+    transition: transform 0.2s;
+}
+.admin-form button:hover {
+    transform: scale(1.05);
+}
+#calendar {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    max-width: 900px;
+    margin: auto;
+}
+.sectionBtn {
+    background-color: #f0f0f0;
+    color: #111;
+}
+.sectionBtn:hover {
+    background-color: #e0e0e0;
+}
