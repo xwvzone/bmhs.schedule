@@ -4,20 +4,19 @@ const sections=["school","class","assignment","exam","notice"];
 const sectionColors={school:"#A8D0E6",assignment:"#FFE5A8",class:"#B8E6B8",exam:"#FFD8A8",notice:"#F6A8C1"};
 let data={};
 
-// 로컬스토리지 불러오기
 sections.forEach(sec=>{
     let stored = JSON.parse(localStorage.getItem(sec));
     data[sec]=Array.isArray(stored)?stored:[];
 });
 
-// 렌더링
 function render(section){
     const list=document.getElementById(section+"List");
     list.innerHTML="";
     data[section].forEach((item,index)=>{
         const li=document.createElement("li");
         li.textContent=item.date?`${item.date} - ${item.event}`:item.event;
-        // 방문자도 등록/삭제 가능
+
+        // 방문자도 삭제 가능
         const delBtn=document.createElement("button");
         delBtn.textContent="삭제";
         delBtn.onclick=()=>{
@@ -44,13 +43,11 @@ function render(section){
     });
 }
 
-// 저장 + 렌더
 function saveAndRender(section){
     localStorage.setItem(section,JSON.stringify(data[section]));
     render(section);
 }
 
-// 등록 버튼
 sections.forEach(sec=>{
     const addBtn=document.getElementById(sec+"AddBtn");
     if(addBtn){
@@ -70,7 +67,6 @@ sections.forEach(sec=>{
     }
 });
 
-// 초기화 버튼 (관리자 모드만)
 sections.forEach(sec=>{
     const sectionEl=document.getElementById(sec);
     const btn=document.createElement("button");
@@ -117,10 +113,8 @@ function updateCalendar(){
     if(calendar){calendar.removeAllEvents(); getAllEvents().forEach(ev=>calendar.addEvent(ev));}
 }
 
-// 홈 버튼
 document.getElementById("homeBtn").onclick=()=>{document.getElementById("home").scrollIntoView({behavior:"smooth"});}
 
-// 관리자 로그인
 document.getElementById("adminBtn").onclick=()=>{
     const pass=document.getElementById("adminPass").value;
     if(pass===ADMIN_PASSWORD){
