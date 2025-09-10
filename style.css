@@ -1,51 +1,149 @@
+/* 폰트, 기본 */
+:root{
+  --bg:#f6f6f8;
+  --card:#ffffff;
+  --muted:#9aa0a6;
+  --accent:#6b7280;
+  --shadow: 0 6px 18px rgba(15,23,42,0.06);
+}
+*{box-sizing:border-box}
 body{
-    font-family:'Arial',sans-serif;
-    margin:0;
-    padding:0;
-    background:#f2f2f2;
-    color:#333;
+  margin:0;
+  font-family:"Nanum Gothic",Arial,sans-serif;
+  background:var(--bg);
+  color:#1f2937;
+  -webkit-font-smoothing:antialiased;
 }
-header{
-    background:#fafafa;
-    padding:12px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 2px 5px rgba(0,0,0,0.1);
-    position:sticky;
-    top:0;
-    z-index:1000;
+
+/* 헤더 */
+.site-header{
+  background:#fff;
+  position:sticky;
+  top:0;
+  z-index:50;
+  box-shadow:0 1px 0 rgba(0,0,0,0.04);
 }
-h1{cursor:pointer;font-size:1.8rem;}
-.section{
-    padding:18px;
-    margin:15px 10px;
-    background:#fff;
-    border-radius:12px;
-    box-shadow:0 3px 8px rgba(0,0,0,0.12);
-    transition:0.3s;
+.header-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:18px 16px;
+  position:relative;
 }
-.section:hover{transform:translateY(-2px);}
-ul{padding-left:20px;}
-li{margin:5px 0;display:flex;align-items:center;justify-content:space-between;}
-button{
-    cursor:pointer;
-    border:none;
-    background:#ccc;
-    padding:5px 12px;
-    border-radius:6px;
-    transition:0.2s;
+.site-title{
+  margin:0;
+  font-size:22px;
+  font-weight:700;
+  cursor:pointer;
+  text-align:center;
 }
-button:hover{background:#bbb;}
-input{
-    margin:5px 5px 5px 0;
-    padding:5px;
-    border-radius:6px;
-    border:1px solid #ccc;
+
+/* 관리자 입력 우측 정렬 */
+.admin-area{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  display:flex;
+  gap:8px;
+  align-items:center;
 }
-.admin-form{margin-top:10px;}
+.admin-input{
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid #e6e9ee;
+  background:#fbfbfc;
+}
+.admin-btn{
+  padding:8px 12px;
+  border-radius:8px;
+  border:1px solid #d0d4da;
+  background:#f3f4f6;
+  cursor:pointer;
+}
+
+/* 섹션 네비 */
+.nav-sections{
+  max-width:1100px;
+  margin:8px auto 18px;
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  padding:0 12px;
+}
+.nav-btn{
+  background:#f3f4f6;
+  border:1px solid #e6e9ee;
+  padding:8px 14px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+}
+.nav-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
+
+/* 메인 홈(달력) */
+.home-section{
+  max-width:1100px;
+  margin:0 auto 18px;
+  padding:0 12px;
+}
+.calendar-card{
+  background:var(--card);
+  padding:18px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+}
+
+/* 섹션 카드 */
+.section-card{
+  max-width:1100px;
+  margin:14px auto;
+  padding:18px;
+  border-radius:12px;
+  background:var(--card);
+  box-shadow:var(--shadow);
+}
+.section-card h2{margin:0 0 12px 0;font-size:20px;}
+
+.admin-form{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-bottom:12px;
+  flex-wrap:wrap;
+}
+.admin-form input{padding:8px;border-radius:8px;border:1px solid #e6e9ee;background:#fbfbfc;}
+.action-btn{padding:8px 12px;border-radius:8px;border:1px solid #d0d4da;background:#eef2ff;cursor:pointer;}
+.section-reset{padding:8px 12px;border-radius:8px;border:1px solid #f0c0c0;background:#fff0f0;color:#b30000;}
+
+/* 리스트 */
+.item-list{list-style:none;padding:0;margin:0;}
+.item-list li{
+  padding:12px;
+  border-radius:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border:1px solid #f0f0f0;
+  margin-bottom:8px;
+  background:#fff;
+}
+.item-meta{color:var(--muted);font-size:13px;}
+.item-actions button{margin-left:8px;padding:6px 10px;border-radius:8px;border:1px solid #d0d4da;background:#f3f4f6;cursor:pointer;}
+
+/* 숨김 */
 .hidden{display:none;}
-@media(max-width:600px){
-    .section{padding:12px;margin:8px;}
-    input,button{width:100%;margin:5px 0;}
+
+/* 반응형 */
+@media (max-width:760px){
+  .header-inner{padding:14px;}
+  .site-title{font-size:18px;}
+  .admin-area{position:static;transform:none;justify-self:end;margin-left:auto;}
+  .home-section,.section-card,.nav-sections{padding:0 14px;}
+  .item-list li{flex-direction:column;align-items:flex-start;gap:8px;}
+  .item-actions{display:flex;gap:6px;}
 }
