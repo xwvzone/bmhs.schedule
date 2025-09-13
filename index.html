@@ -1,104 +1,117 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>보문고등학교 일정</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>보문고등학교 일정</title>
 
-<!-- FullCalendar global build (CSS + JS) -->
-<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FullCalendar global build (CSS + JS) -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
 
-<!-- 사용자 CSS -->
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <!-- 사용자 CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <h1 id="homeBtn" class="site-title" role="banner" tabindex="0" aria-label="보문고등학교 일정 홈으로 이동">보문고등학교 일정</h1>
 
-<header class="site-header">
-  <div class="header-inner">
-    <h1 id="homeBtn" class="site-title">보문고등학교 일정</h1>
+        <div class="admin-area">
+          <input
+            id="adminPass"
+            class="admin-input"
+            type="password"
+            placeholder="관리자 비밀번호"
+            aria-label="관리자 비밀번호 입력"
+          />
+          <button id="adminBtn" class="admin-btn" aria-label="관리자 모드로 전환">관리자 모드</button>
+        </div>
+      </div>
 
-    <div class="admin-area">
-      <input id="adminPass" class="admin-input" type="password" placeholder="관리자 비밀번호">
-      <button id="adminBtn" class="admin-btn">관리자 모드</button>
-    </div>
-  </div>
+      <nav class="nav-sections" aria-label="주요 섹션 네비게이션" role="navigation">
+        <button class="nav-btn" data-target="school" aria-label="학교 일정 섹션으로 이동">🏫 학교 일정</button>
+        <button class="nav-btn" data-target="class" aria-label="학급 일정 섹션으로 이동">📚 학급 일정</button>
+        <button class="nav-btn" data-target="assignment" aria-label="수행평가 섹션으로 이동">📝 수행평가</button>
+        <button class="nav-btn" data-target="exam" aria-label="시험 일정 섹션으로 이동">📋 시험 일정</button>
+        <button class="nav-btn" data-target="notice" aria-label="공지사항 섹션으로 이동">📢 공지사항</button>
+      </nav>
+    </header>
 
-  <nav class="nav-sections" aria-label="섹션 이동">
-    <button class="nav-btn" data-target="school">학교 일정</button>
-    <button class="nav-btn" data-target="class">학급 일정</button>
-    <button class="nav-btn" data-target="assignment">수행평가</button>
-    <button class="nav-btn" data-target="exam">시험 일정</button>
-    <button class="nav-btn" data-target="notice">공지사항</button>
-  </nav>
-</header>
+    <main role="main">
+      <!-- HOME (달력) -->
+      <section id="home" class="home-section" aria-labelledby="calendar-heading">
+        <h2 id="calendar-heading" class="visually-hidden">전체 일정 달력</h2>
+        <div id="calendar" class="calendar-card" role="region" aria-label="전체 일정 달력"></div>
+      </section>
 
-<main>
-  <!-- HOME (달력) -->
-  <section id="home" class="home-section">
-    <div id="calendar" class="calendar-card"></div>
-  </section>
+      <!-- 각 섹션: admin-form (입력창) 은 기본 hidden -->
+      <section id="school" class="section-card" aria-labelledby="school-heading">
+        <h2 id="school-heading">🏫 우리 학교 일정</h2>
+        <div class="admin-form admin-inactive" role="form" aria-label="학교 일정 등록">
+          <input id="schoolDate" type="date" aria-label="학교 일정 날짜" />
+          <input id="schoolEvent" placeholder="행사 이름" aria-label="학교 행사 이름" />
+          <button id="schoolAddBtn" class="action-btn" aria-label="학교 일정 등록">등록</button>
+          <button class="section-reset" data-sec="school" aria-label="학교 일정 전체 삭제">섹션 초기화</button>
+        </div>
+        <ul id="schoolList" class="item-list" role="list" aria-label="학교 일정 목록"></ul>
+      </section>
 
-  <!-- 각 섹션: admin-form (입력창) 은 기본 hidden -->
-  <section id="school" class="section-card">
-    <h2>우리 학교 일정</h2>
-    <div class="admin-form hidden">
-      <input id="schoolDate" type="date">
-      <input id="schoolEvent" placeholder="행사 이름">
-      <button id="schoolAddBtn" class="action-btn">등록</button>
-      <!-- 섹션 초기화 버튼(관리자 전용) -->
-      <button class="section-reset hidden" data-sec="school">섹션 초기화</button>
-    </div>
-    <ul id="schoolList" class="item-list"></ul>
-  </section>
+      <section id="class" class="section-card" aria-labelledby="class-heading">
+        <h2 id="class-heading">📚 우리 학급 일정</h2>
+        <div class="admin-form admin-inactive" role="form" aria-label="학급 일정 등록">
+          <input id="classDate" type="date" aria-label="학급 일정 날짜" />
+          <input id="classEvent" placeholder="행사 이름" aria-label="학급 행사 이름" />
+          <button id="classAddBtn" class="action-btn" aria-label="학급 일정 등록">등록</button>
+          <button class="section-reset" data-sec="class" aria-label="학급 일정 전체 삭제">섹션 초기화</button>
+        </div>
+        <ul id="classList" class="item-list" role="list" aria-label="학급 일정 목록"></ul>
+      </section>
 
-  <section id="class" class="section-card">
-    <h2>우리 학급 일정</h2>
-    <div class="admin-form hidden">
-      <input id="classDate" type="date">
-      <input id="classEvent" placeholder="행사 이름">
-      <button id="classAddBtn" class="action-btn">등록</button>
-      <button class="section-reset hidden" data-sec="class">섹션 초기화</button>
-    </div>
-    <ul id="classList" class="item-list"></ul>
-  </section>
+      <section id="assignment" class="section-card" aria-labelledby="assignment-heading">
+        <h2 id="assignment-heading">📝 수행평가</h2>
+        <div class="admin-form admin-inactive" role="form" aria-label="수행평가 등록">
+          <input id="assignmentDate" type="date" aria-label="수행평가 날짜" />
+          <input id="assignmentEvent" placeholder="내용" aria-label="수행평가 내용" />
+          <button id="assignmentAddBtn" class="action-btn" aria-label="수행평가 등록">등록</button>
+          <button class="section-reset" data-sec="assignment" aria-label="수행평가 전체 삭제">
+            섹션 초기화
+          </button>
+        </div>
+        <ul id="assignmentList" class="item-list" role="list" aria-label="수행평가 목록"></ul>
+      </section>
 
-  <section id="assignment" class="section-card">
-    <h2>수행평가</h2>
-    <div class="admin-form hidden">
-      <input id="assignmentDate" type="date">
-      <input id="assignmentEvent" placeholder="내용">
-      <button id="assignmentAddBtn" class="action-btn">등록</button>
-      <button class="section-reset hidden" data-sec="assignment">섹션 초기화</button>
-    </div>
-    <ul id="assignmentList" class="item-list"></ul>
-  </section>
+      <section id="exam" class="section-card" aria-labelledby="exam-heading">
+        <h2 id="exam-heading">📋 시험 일정</h2>
+        <div class="admin-form admin-inactive" role="form" aria-label="시험 일정 등록">
+          <input id="examDate" type="date" aria-label="시험 날짜" />
+          <input id="examEvent" placeholder="시험 이름" aria-label="시험 이름" />
+          <button id="examAddBtn" class="action-btn" aria-label="시험 일정 등록">등록</button>
+          <button class="section-reset" data-sec="exam" aria-label="시험 일정 전체 삭제">섹션 초기화</button>
+        </div>
+        <ul id="examList" class="item-list" role="list" aria-label="시험 일정 목록"></ul>
+      </section>
 
-  <section id="exam" class="section-card">
-    <h2>시험 일정</h2>
-    <div class="admin-form hidden">
-      <input id="examDate" type="date">
-      <input id="examEvent" placeholder="시험 이름">
-      <button id="examAddBtn" class="action-btn">등록</button>
-      <button class="section-reset hidden" data-sec="exam">섹션 초기화</button>
-    </div>
-    <ul id="examList" class="item-list"></ul>
-  </section>
+      <section id="notice" class="section-card" aria-labelledby="notice-heading">
+        <h2 id="notice-heading">📢 공지사항</h2>
+        <div class="admin-form admin-inactive" role="form" aria-label="공지사항 등록">
+          <input id="noticeEvent" placeholder="공지 내용" aria-label="공지사항 내용" />
+          <button id="noticeAddBtn" class="action-btn" aria-label="공지사항 등록">등록</button>
+          <button class="section-reset" data-sec="notice" aria-label="공지사항 전체 삭제">섉션 초기화</button>
+        </div>
+        <ul id="noticeList" class="item-list" role="list" aria-label="공지사항 목록"></ul>
+      </section>
+    </main>
 
-  <section id="notice" class="section-card">
-    <h2>공지사항</h2>
-    <div class="admin-form hidden">
-      <input id="noticeEvent" placeholder="공지 내용">
-      <button id="noticeAddBtn" class="action-btn">등록</button>
-      <button class="section-reset hidden" data-sec="notice">섹션 초기화</button>
-    </div>
-    <ul id="noticeList" class="item-list"></ul>
-  </section>
-</main>
-
-<!-- FullCalendar script (global build) -->
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-<!-- 앱 스크립트 -->
-<script src="script.js"></script>
-</body>
+    <!-- FullCalendar script (global build) -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <!-- 앱 스크립트 -->
+    <script src="script.js"></script>
+  </body>
 </html>
